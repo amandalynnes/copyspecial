@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 
 # give credits
-__author__ = "Amanda Simmons, Pete M"
+__author__ = "Amanda Simmons, Pete M, Ana Ruiz, Drew S"
 
 import re
 import os
@@ -19,24 +19,26 @@ import argparse
 
 def get_special_paths(dirname):
     """Given a dirname, returns a list of all its special files."""
-    # print(dirname)
-    # print(os.path.abspath(dirname))
-    # print(os.listdir(dirname))
+
     abs_paths_list = []
     file_names_list = os.listdir(dirname)
     for f in file_names_list:
         match_object = re.search(r'\w+__\w+__.\w+', f)
         if match_object:
-            # abs_paths_list.append(os.path.abspath(match_object.group(0)))
+
             abs_paths_list.append(os.path.abspath(f))
             for path in abs_paths_list:
                 print(path)
-                print(f)
 
     return abs_paths_list
 
+
 def copy_to(path_list, dest_dir):
-    # your code here
+    os.makedirs(dest_dir)
+    for f in path_list:
+        shutil.copy(f, dest_dir)
+        print(f)
+    print(dest_dir)
     return
 
 
@@ -54,7 +56,13 @@ def main(args):
     parser.add_argument('from_dir', help='origin directory')
     # TODO: add one more argument definition to parse the 'from_dir' argument
     ns = parser.parse_args(args)
-    get_special_paths(ns.from_dir)
+    from_dir = ns.from_dir
+    specials_paths_list = get_special_paths(from_dir)
+
+    to_dir = ns.todir
+
+    if to_dir:
+        copy_to(specials_paths_list, to_dir)
     # TODO: you must write your own code to get the command line args.
     # Read the docs and examples for the argparse module about how to do this.
     # print(ns.from_dir)
