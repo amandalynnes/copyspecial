@@ -20,17 +20,16 @@ import argparse
 def get_special_paths(dirname):
     """Given a dirname, returns a list of all its special files."""
     # print(dirname)
-    print(os.path.abspath(dirname))
-    print(os.listdir(dirname))
+    # print(os.path.abspath(dirname))
+    # print(os.listdir(dirname))
     abs_paths_list = []
     file_names_list = os.listdir(dirname)
     for f in file_names_list:
         match_object = re.search(r'\w+__\w+__.\w+', f)
         if match_object:
-            abs_paths_list.append(match_object.group(0))
+            abs_paths_list.append(os.path.abspath(match_object.group(0)))
     print(abs_paths_list)
-    return
-
+    return abs_paths_list
 
 def copy_to(path_list, dest_dir):
     # your code here
