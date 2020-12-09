@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 
 # give credits
-__author__ = "???"
+__author__ = "Amanda Simmons, Pete M"
 
 import re
 import os
@@ -19,7 +19,10 @@ import argparse
 
 def get_special_paths(dirname):
     """Given a dirname, returns a list of all its special files."""
-    # your code here
+    # print(dirname)
+    print(os.path.abspath(dirname))
+    print(os.listdir(dirname))
+
     return
 
 
@@ -39,12 +42,13 @@ def main(args):
     parser = argparse.ArgumentParser()
     parser.add_argument('--todir', help='dest dir for special files')
     parser.add_argument('--tozip', help='dest zipfile for special files')
+    parser.add_argument('from_dir', help='origin directory')
     # TODO: add one more argument definition to parse the 'from_dir' argument
     ns = parser.parse_args(args)
-
+    get_special_paths(ns.from_dir)
     # TODO: you must write your own code to get the command line args.
     # Read the docs and examples for the argparse module about how to do this.
-
+    # print(ns.from_dir)
     # Parsing command line arguments is a must-have skill.
     # This is input data validation. If something is wrong (or missing) with
     # any required args, the general rule is to print a usage message and
