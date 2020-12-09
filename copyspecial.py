@@ -27,8 +27,8 @@ def get_special_paths(dirname):
         if match_object:
 
             abs_paths_list.append(os.path.abspath(f))
-            for path in abs_paths_list:
-                print(path)
+            # for path in abs_paths_list:
+            #     print(path)
 
     return abs_paths_list
 
@@ -43,7 +43,8 @@ def copy_to(path_list, dest_dir):
 
 
 def zip_to(path_list, dest_zip):
-    # your code here
+    subprocess.run(['zip', '-j', dest_zip] + path_list)
+    # print(subprocess.run(zip -j dest_zip path_list))
     return
 
 
@@ -58,11 +59,13 @@ def main(args):
     ns = parser.parse_args(args)
     from_dir = ns.from_dir
     specials_paths_list = get_special_paths(from_dir)
-
     to_dir = ns.todir
+    to_zip = ns.tozip
 
     if to_dir:
         copy_to(specials_paths_list, to_dir)
+    elif to_zip:
+        zip_to(specials_paths_list, to_zip)
     # TODO: you must write your own code to get the command line args.
     # Read the docs and examples for the argparse module about how to do this.
     # print(ns.from_dir)
