@@ -27,8 +27,12 @@ def get_special_paths(dirname):
     for f in file_names_list:
         match_object = re.search(r'\w+__\w+__.\w+', f)
         if match_object:
-            abs_paths_list.append(os.path.abspath(match_object.group(0)))
-    print(abs_paths_list)
+            # abs_paths_list.append(os.path.abspath(match_object.group(0)))
+            abs_paths_list.append(os.path.abspath(f))
+            for path in abs_paths_list:
+                print(path)
+                print(f)
+
     return abs_paths_list
 
 def copy_to(path_list, dest_dir):
