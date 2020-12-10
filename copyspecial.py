@@ -7,7 +7,7 @@
 # http://www.apache.org/licenses/LICENSE-2.0
 
 # give credits
-__author__ = "Amanda Simmons, Pete M, Ana Ruiz, Drew S"
+__author__ = "Amanda Simmons, Pete M, Ana Ruiz, Drew S, Kano, Daniel"
 
 import re
 import os
@@ -23,26 +23,27 @@ def get_special_paths(dirname):
     abs_paths_list = []
     file_names_list = os.listdir(dirname)
     for f in file_names_list:
-        match_object = re.search(r'\w+__\w+__.\w+', f)
+        match_object = re.search(r'__\w+__', f)
         if match_object:
-
-            abs_paths_list.append(os.path.abspath(f))
-            # for path in abs_paths_list:
-            #     print(path)
+            file_path = os.path.join(dirname, f)
+            abs_paths_list.append(os.path.abspath(file_path))
 
     return abs_paths_list
 
 
 def copy_to(path_list, dest_dir):
+    """Given path_list and dest_dir,
+    it makes any subdirectories/ directories needed."""
     os.makedirs(dest_dir)
     for f in path_list:
         shutil.copy(f, dest_dir)
-        print(f)
-    print(dest_dir)
+
     return
 
 
 def zip_to(path_list, dest_zip):
+    """Given path_list and dest_dir,
+    it makes any subdirectories/ directories needed."""
     subprocess.run(['zip', '-j', dest_zip] + path_list)
     # print(subprocess.run(zip -j dest_zip path_list))
     return
@@ -66,6 +67,9 @@ def main(args):
         copy_to(specials_paths_list, to_dir)
     elif to_zip:
         zip_to(specials_paths_list, to_zip)
+    else:
+        for path in specials_paths_list:
+            print(path)
     # TODO: you must write your own code to get the command line args.
     # Read the docs and examples for the argparse module about how to do this.
     # print(ns.from_dir)
