@@ -45,7 +45,7 @@ def zip_to(path_list, dest_zip):
     """Given path_list and dest_dir,
     it makes any subdirectories/ directories needed."""
     subprocess.run(['zip', '-j', dest_zip] + path_list)
-    # print(subprocess.run(zip -j dest_zip path_list))
+
     return
 
 
